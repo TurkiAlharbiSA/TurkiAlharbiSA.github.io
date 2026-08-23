@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#efe4cf"/>
+  <rect x="4" y="4" width="56" height="56" fill="none" stroke="#8a6a32" stroke-width="1"/>
+  <rect x="8" y="8" width="48" height="48" fill="#7a1c16"/>
+  <text x="32" y="44" text-anchor="middle"
+        font-family="Amiri, IBM Plex Sans Arabic, serif"
+        font-size="34" font-weight="700" fill="#efe4cf">ت</text>
+</svg>

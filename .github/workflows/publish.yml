@@ -1,0 +1,48 @@
+# Update the live site from GitHub. Pages itself cannot write files.
+#
+# Actions → Publish a piece → Run workflow
+#   url:     a majalla.com (or other) article link
+#   refresh: also pull any new rows from Turki's Al Majalla archive
+name: Publish a piece
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: Article URL to add (leave empty to only refresh the archive)
+        required: false
+        type: string
+      refresh:
+        description: Pull new pieces from the Al Majalla author archive
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ingest the URL
+        if: ${{ inputs.url != '' }}
+        run: python3 data/ingest.py "${{ inputs.url }}"
+
+      - name: Refresh the archive
+        if: ${{ inputs.refresh }}
+        run: python3 data/scrape.py
+
+      - name: Commit if the list changed
+        run: |
+          git config user.name "turki-desk"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/articles.json assets/data.js assets/covers
+          if git diff --cached --quiet; then
+            echo "No change to publish."
+            exit 0
+          fi
+          git commit -m "Publish work from the desk"
+          git push
