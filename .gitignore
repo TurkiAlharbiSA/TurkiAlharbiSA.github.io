@@ -6,3 +6,8 @@ __pycache__/
 *.pyc
 node_modules/
 node_modules
+
+# internal local-only editor (not for public Pages)
+desk.html
+desk.js
+server.py
