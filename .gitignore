@@ -11,3 +11,10 @@ node_modules
 desk.html
 desk.js
 server.py
+
+# dev-only, not for public site
+test/
+content/
+data/notes.md
+data/enrich.py
+README.md
